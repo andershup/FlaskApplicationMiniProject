@@ -21,7 +21,8 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route('/get_tasks')
 def get_tasks():
-    return render_template("tasks.html", tasks=mongo.db.tasks.find())
+    return render_template("tasks.html", 
+                            tasks=mongo.db.tasks.find())
 
 @app.route('/add_task')
 def add_task():
@@ -33,11 +34,11 @@ def insert_task():
     tasks.insert_one(request.form.to_dict())
     return redirect(url_for('get_tasks'))
 
-@app.route('/edit_task/, <task_id>')
+@app.route('/edit_task/ <task_id>')
 def edit_task(task_id):
-    the_task = mongo.db.tasks.find({"_id": ObjectId(task_id)})
+    the_task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
     all_categories = mongo.db.categories.find()
-    return render_template('edittask.html', task=the_task)
+    return render_template('edittask.html', task=the_task, categories=all_categories)
 
 
 
