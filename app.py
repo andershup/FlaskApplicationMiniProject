@@ -40,7 +40,8 @@ def edit_task(task_id):
     all_categories = mongo.db.categories.find()
     return render_template('edittask.html', task=the_task, categories=all_categories)
 
-
+@app.route('/update_task/ <task_id>', methods=["POST"])
+def 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
